@@ -1,22 +1,22 @@
 # Math-Utilities
 
-# the file holds functions for the following fields in mathematics:
+## the file holds functions for the following fields in mathematics:
 
 
-## Number Theory
+### *Number Theory*
   * Prime Numbers
   * Diophantine Equations
 
 
-## Lists
+### *Lists*
   * Fibonacci
   * Factorial
 
 
-## Probablity
+### *Probablity*
   * Mean
 
 
-## Combinatorics
+### *Combinatorics*
   * Combination
   * Permutation
