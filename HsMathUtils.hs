@@ -3,7 +3,7 @@ import System.IO
 
 
 
-----Prime Numbers----
+----Number Theory----
 
 isPrime :: Int -> Bool
 isPrime n = aux n 2
@@ -110,7 +110,7 @@ factorial n =
 
 
 
-----Mean----
+----Probability----
 
 mean :: [Int] -> Double
 mean a = fromIntegral (foldr (+) 0 a) / fromIntegral (length a)
