@@ -119,8 +119,8 @@ mean a = fromIntegral (foldr (+) 0 a) / fromIntegral (length a)
 
 ----Combinatorics----
 
-combination :: Int -> Int -> Double
-combination n k = fromIntegral (factorial n) / (fromIntegral (factorial k) * fromIntegral (factorial (n-k)))
+combination :: Int -> Int -> Int
+combination n k = round(fromIntegral (factorial n) / (fromIntegral (factorial k) * fromIntegral (factorial (n-k))))
 
-permutation :: Int -> Int -> Double
-permutation n k = (fromIntegral (factorial n)) / (fromIntegral (factorial (n-k)))
+permutation :: Int -> Int -> Int
+permutation n k = round((fromIntegral (factorial n)) / (fromIntegral (factorial (n-k))))
