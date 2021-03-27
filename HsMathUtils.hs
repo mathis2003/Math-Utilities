@@ -3,6 +3,17 @@ import System.IO
 
 
 
+----General-----
+
+factorial :: Int -> Int
+factorial n =
+    if n <= 1 then
+        1
+    else
+        n * factorial (n-1)
+
+
+
 ----Number Theory----
 
 isPrime :: Int -> Bool
@@ -86,23 +97,12 @@ substitute_eq list = SubstEquation {subst_a = new_a, subst_x = new_x, subst_b = 
         new_c = subst_c (list !! 0)
 
 
-
-----Fibonacci and Factorial----
-
 fibonacci :: Int -> [Int]
 fibonacci n = aux 1 1 n []
     where
         aux a b n acc
             | length acc <  n = aux b (a+b) n (a : acc)
             | length acc >= n = reverse(acc)
-
-
-factorial :: Int -> Int
-factorial n =
-    if n <= 1 then
-        1
-    else
-        n * factorial (n-1)
 
 
 

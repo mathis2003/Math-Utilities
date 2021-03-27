@@ -3,14 +3,14 @@
 ## the file holds functions for the following fields in mathematics:
 
 
+### *General Math*
+* Factorial
+
+
 ### *Number Theory*
   * Prime Numbers
   * Diophantine Equations
-
-
-### *Lists*
-  * Fibonacci
-  * Factorial
+  * Fibonacci sequence
 
 
 ### *Probablity*
