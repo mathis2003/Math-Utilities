@@ -18,12 +18,6 @@ isPrime n = aux n 2
 extractPrimes :: [Int] -> [Int]
 extractPrimes a = [ x | x <- a, isPrime x]
 
-
-
-data DiophantineEquation = DiophantineEquation { dio_a :: Int,
-                                                dio_b :: Int,
-                                                dio_c :: Int }
-    deriving Show
                                                 
 data DivEquation = DivEquation { eq_a :: Int,
                                  eq_b :: Int,
@@ -40,15 +34,15 @@ data SubstEquation = SubstEquation { subst_a :: Int,
 
 
 
-solve_diophantine_eq :: DiophantineEquation -> (Int, Int)
-solve_diophantine_eq eq = substitute_to_dioph_solution( reverse (div_to_subst_eq (init_euclid_alg(eq)) (1) ([] :: [SubstEquation])))
+solve_diophantine_eq :: Int -> Int -> Int -> (Int, Int)
+solve_diophantine_eq a b c = substitute_to_dioph_solution( reverse (div_to_subst_eq (init_euclid_alg a b c) (1) ([] :: [SubstEquation])))
 
 
-init_euclid_alg :: DiophantineEquation -> [DivEquation]
-init_euclid_alg eq = euclid_algorithm ( (DivEquation { eq_a = (dio_a eq),  eq_b = (dio_b eq), eq_q = new_q, eq_r = new_r}) : [] )
+init_euclid_alg :: Int -> Int -> Int -> [DivEquation]
+init_euclid_alg a b c = euclid_algorithm ( (DivEquation { eq_a = a,  eq_b = b, eq_q = new_q, eq_r = new_r}) : [] )
     where
-        new_r = (dio_a eq) `mod` (dio_b eq)
-        new_q = round((fromIntegral ((dio_a eq) - new_r)) / (fromIntegral (dio_b eq)))
+        new_r = a `mod` b
+        new_q = round((fromIntegral (a - new_r)) / (fromIntegral b))
         
 
 euclid_algorithm :: [DivEquation] -> [DivEquation]
