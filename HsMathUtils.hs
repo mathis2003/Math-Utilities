@@ -35,11 +35,11 @@ data SubstEquation = SubstEquation { subst_a :: Int,
 
 
 solve_diophantine_eq :: Int -> Int -> Int -> (Int, Int)
-solve_diophantine_eq a b c = substitute_to_dioph_solution( reverse (div_to_subst_eq (init_euclid_alg a b c) (1) ([] :: [SubstEquation])))
+solve_diophantine_eq a b c = substitute_to_dioph_solution( reverse (div_to_subst_eq (init_euclid_alg a b) (1) ([] :: [SubstEquation]))) c
 
 
-init_euclid_alg :: Int -> Int -> Int -> [DivEquation]
-init_euclid_alg a b c = euclid_algorithm ( (DivEquation { eq_a = a,  eq_b = b, eq_q = new_q, eq_r = new_r}) : [] )
+init_euclid_alg :: Int -> Int -> [DivEquation]
+init_euclid_alg a b = euclid_algorithm ( (DivEquation { eq_a = a,  eq_b = b, eq_q = new_q, eq_r = new_r}) : [] )
     where
         new_r = a `mod` b
         new_q = round((fromIntegral (a - new_r)) / (fromIntegral b))
@@ -69,10 +69,12 @@ div_to_subst_eq div_list acc subst_list
 
 
 
-substitute_to_dioph_solution :: [SubstEquation] -> (Int, Int)
-substitute_to_dioph_solution subst_eq_list
-    | length subst_eq_list == 1 = (subst_x (subst_eq_list !! 0), subst_y (subst_eq_list !! 0))
-    | otherwise = substitute_to_dioph_solution (substitute_eq subst_eq_list : tail (tail subst_eq_list))
+substitute_to_dioph_solution :: [SubstEquation] -> Int -> (Int, Int)
+substitute_to_dioph_solution subst_eq_list c
+    | length subst_eq_list == 1 = (subst_x (subst_eq_list !! 0) * mult_int, subst_y (subst_eq_list !! 0) * mult_int)
+    | otherwise = substitute_to_dioph_solution (substitute_eq subst_eq_list : tail (tail subst_eq_list)) c
+        where
+            mult_int = round(fromIntegral(c) / fromIntegral(subst_c (subst_eq_list !! 0)))
 
 substitute_eq :: [SubstEquation] -> SubstEquation
 substitute_eq list = SubstEquation {subst_a = new_a, subst_x = new_x, subst_b = new_b, subst_y = new_y, subst_c = new_c}
@@ -81,7 +83,7 @@ substitute_eq list = SubstEquation {subst_a = new_a, subst_x = new_x, subst_b = 
         new_x = subst_y (list !! 0) * subst_x (list !! 1)
         new_b = subst_b (list !! 1)
         new_y = subst_y (list !! 0) * subst_y (list !! 1) + subst_x (list !! 0)
-        new_c = subst_c (list !! (length list - 1))
+        new_c = subst_c (list !! 0)
 
 
 
