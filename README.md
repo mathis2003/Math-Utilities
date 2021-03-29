@@ -9,13 +9,14 @@
 
 ### *Number Theory*
   * Prime Numbers
-  * Diophantine Equations
+  * Lineair Diophantine Equations
   * Fibonacci sequence
 
 
 ### *Probablity*
   * Mean
-
+  * Median
+  * Mode
 
 ### *Combinatorics*
   * Combination

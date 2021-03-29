@@ -46,7 +46,10 @@ data SubstEquation = SubstEquation { subst_a :: Int,
 
 
 solve_diophantine_eq :: Int -> Int -> Int -> (Int, Int)
-solve_diophantine_eq a b c = substitute_to_dioph_solution( reverse (div_to_subst_eq (init_euclid_alg a b) (1) ([] :: [SubstEquation]))) c
+solve_diophantine_eq a b c = substitute_to_dioph_solution( 
+    reverse (
+        div_to_subst_eq (
+            init_euclid_alg a b) (1) ([] :: [SubstEquation]))) c
 
 
 init_euclid_alg :: Int -> Int -> [DivEquation]
@@ -108,15 +111,45 @@ fibonacci n = aux 1 1 n []
 
 ----Probability----
 
-mean :: [Int] -> Double
-mean a = fromIntegral (foldr (+) 0 a) / fromIntegral (length a)
+mean :: [Double] -> Double
+mean a = (foldr (+) 0 a) / fromIntegral (length a)
 
 
+median :: [Double] -> Double
+median a
+    | length a `mod` 2 == 0 = ((a !! (ceiling(((fromIntegral(length a)) / 2.0)) - 1) + (a !! round(((fromIntegral(length a)) / 2.0)))) / fromIntegral(2))
+    | otherwise = (a !! (round((fromIntegral(length a - 1)) / fromIntegral(2))))
+        where 
+
+mode :: [Double] -> Double
+mode a = loop_through_list a 0 0
+    where 
+        loop_through_list list cur_biggest acc
+            | acc >= length list = cur_biggest
+            | otherwise = loop_through_list (tail list) new_biggest (acc+1)
+                where
+                    new_biggest = 
+                        if element_in_list_amount list (list !! 0) 0 > element_in_list_amount list cur_biggest 0 then
+                            list !! 0
+                        else
+                            cur_biggest
+
+element_in_list_amount :: [Double] -> Double -> Int -> Int
+element_in_list_amount list elem acc
+    | length list <= 0 = acc
+    | otherwise = element_in_list_amount (tail list) elem new_acc
+        where
+            new_acc =
+                if elem == (list !! 0) then
+                    acc + 1
+                else
+                    acc
 
 ----Combinatorics----
 
 combination :: Int -> Int -> Int
 combination n k = round(fromIntegral (factorial n) / (fromIntegral (factorial k) * fromIntegral (factorial (n-k))))
+
 
 permutation :: Int -> Int -> Int
 permutation n k = round((fromIntegral (factorial n)) / (fromIntegral (factorial (n-k))))
