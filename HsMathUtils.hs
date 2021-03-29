@@ -3,7 +3,9 @@ import System.IO
 
 
 
+
 ----General-----
+
 
 factorial :: Int -> Int
 factorial n =
@@ -14,7 +16,9 @@ factorial n =
 
 
 
+
 ----Number Theory----
+
 
 isPrime :: Int -> Bool
 isPrime n = aux n 2
@@ -36,13 +40,13 @@ data DivEquation = DivEquation { eq_a :: Int,
                                  eq_r :: Int }
     deriving Show
 
+
 data SubstEquation = SubstEquation { subst_a :: Int,
                                      subst_x :: Int,
                                      subst_b :: Int,
                                      subst_y :: Int,
                                      subst_c :: Int }
     deriving Show
-
 
 
 solve_diophantine_eq :: Int -> Int -> Int -> (Int, Int)
@@ -82,13 +86,13 @@ div_to_subst_eq div_list acc subst_list
             new_c = eq_r (div_list !! acc)
 
 
-
 substitute_to_dioph_solution :: [SubstEquation] -> Int -> (Int, Int)
 substitute_to_dioph_solution subst_eq_list c
     | length subst_eq_list == 1 = (subst_x (subst_eq_list !! 0) * mult_int, subst_y (subst_eq_list !! 0) * mult_int)
     | otherwise = substitute_to_dioph_solution (substitute_eq subst_eq_list : tail (tail subst_eq_list)) c
         where
             mult_int = round(fromIntegral(c) / fromIntegral(subst_c (subst_eq_list !! 0)))
+
 
 substitute_eq :: [SubstEquation] -> SubstEquation
 substitute_eq list = SubstEquation {subst_a = new_a, subst_x = new_x, subst_b = new_b, subst_y = new_y, subst_c = new_c}
@@ -109,7 +113,9 @@ fibonacci n = aux 1 1 n []
 
 
 
+
 ----Probability----
+
 
 mean :: [Double] -> Double
 mean a = (foldr (+) 0 a) / fromIntegral (length a)
@@ -120,6 +126,7 @@ median a
     | length a `mod` 2 == 0 = ((a !! (ceiling(((fromIntegral(length a)) / 2.0)) - 1) + (a !! round(((fromIntegral(length a)) / 2.0)))) / fromIntegral(2))
     | otherwise = (a !! (round((fromIntegral(length a - 1)) / fromIntegral(2))))
         where 
+
 
 mode :: [Double] -> Double
 mode a = loop_through_list a 0 0
@@ -134,6 +141,7 @@ mode a = loop_through_list a 0 0
                         else
                             cur_biggest
 
+
 element_in_list_amount :: [Double] -> Double -> Int -> Int
 element_in_list_amount list elem acc
     | length list <= 0 = acc
@@ -145,7 +153,23 @@ element_in_list_amount list elem acc
                 else
                     acc
 
+
+variance :: [Double] -> Double
+variance a = mean (sub_mean ([] :: [Double]) 0)
+    where
+        sub_mean list acc
+            | acc >= length a = list
+            | otherwise = sub_mean ((((a !! acc) - mean a) ** 2) : list) (acc+1)
+
+
+standard_deviation :: [Double] -> Double 
+standard_deviation a = sqrt(variance a)
+
+
+
+
 ----Combinatorics----
+
 
 combination :: Int -> Int -> Int
 combination n k = round(fromIntegral (factorial n) / (fromIntegral (factorial k) * fromIntegral (factorial (n-k))))
