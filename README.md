@@ -10,7 +10,7 @@
   * Lineair Diophantine Equations
   * Fibonacci sequence
 
-### *Probablity*
+### *Probability*
   * Mean
   * Median
   * Mode
