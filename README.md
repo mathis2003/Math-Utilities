@@ -1,6 +1,6 @@
 # Math-Utilities
 
-## the file holds functions for the following fields in mathematics:
+## the file holds functions for the following:
 
 ### *General Math*
   * Factorial
